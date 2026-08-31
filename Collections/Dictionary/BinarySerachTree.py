@@ -1,4 +1,5 @@
-from enum import nonmember
+from Collections.Dictionary.TreeVisualizer import TreeVisualizer
+from Collections.List.DoubleLinkedList import DoubleLinkedList
 
 
 class BinarySearchTree:
@@ -48,7 +49,7 @@ class BinarySearchTree:
             return 0
         return self.rootNode.countOfSubNodesAndSelf
 
-    def size(self, key : object) -> int:
+    def specificSize(self, key : object) -> int:
         node : BinarySearchTree.Node = self.get(key)
         if node is None:
             return 0
@@ -56,6 +57,18 @@ class BinarySearchTree:
 
     def rank(self, key : object) -> int:
         return self.__rank(key, self.rootNode)
+
+    def keysAscendingOrder(self) -> DoubleLinkedList[object]:
+        resultList : DoubleLinkedList[object] = DoubleLinkedList()
+        self.__inorder(self.rootNode, resultList)
+        return resultList
+
+    def __inorder(self, currentNode : BinarySearchTree.Node, resultList : DoubleLinkedList[object]) -> None:
+        if currentNode is None:
+            return
+        self.__inorder(currentNode.leftSubTree, resultList)
+        resultList.addToFirst(currentNode.key)
+        self.__inorder(currentNode.rightSubTree, resultList)
 
     def __insertAt(self, currentNode : BinarySearchTree.Node, nodeToInsert : BinarySearchTree.Node) -> None:
         if currentNode.key > nodeToInsert.key:
@@ -130,3 +143,16 @@ class BinarySearchTree:
         elif currentNode.leftSubTree is None:
             return 0
         return currentNode.leftSubTree.countOfSubNodesAndSelf
+
+
+bst = BinarySearchTree()
+
+for key in [20,10,5,15,30,25]:
+    bst.insert(key,key)
+
+for key in [20,10,5,15,30,25]:
+    print(str(key) + ":" + str(bst.rank(key)))
+
+visual = TreeVisualizer(bst.rootNode)
+visual.run()
+

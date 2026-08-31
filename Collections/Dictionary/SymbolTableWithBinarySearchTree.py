@@ -1,42 +1,73 @@
 from typing import Iterator
 
+from Collections.Dictionary import BinarySerachTree
+from Collections.List.DoubleLinkedList import DoubleLinkedList
+
 
 class Dictionary:
+
+    __bst : BinarySerachTree = BinarySerachTree.BinarySearchTree()
+
     def __init__(self):
         pass
+
     def put(self, key: object, value: object) -> None:
-        pass
+        self.__bst.insert(key, value)
+
     def get(self, key : object) -> object:
-        pass
+        self.__bst.get(key)
+
     def contains(self, key: object) -> bool:
-        pass
+        return self.__bst.get(key) is not None
+
     def delete(self, key: object) -> None:
-        pass
+        self.__bst.delete(key)
+
     def isEmpty(self) -> bool:
-        pass
+        return self.__bst.size() == 0
+
     def size(self) -> int:
-        pass
-    def keys(self) -> Iterator:
-        pass
+        return self.__bst.size()
+
+    def keys(self) -> DoubleLinkedList[object]:
+        return self.__bst.keysAscendingOrder()
 
 
     def min(self) -> object:
-        pass
+        self.__bst.get(self.__bst.getMinKey())
+
     def max(self) -> object:
-        pass
+        self.__bst.get(self.__bst.getMaxKey())
+
     def floor(self, key : object) -> object:
         pass
+
     def ceiling(self, key : object) -> object:
         pass
+
     def rank(self, key : object) -> int:
-        pass
+        self.__bst.rank(key)
+
     def select(self, rankK : int) -> object:
         pass
-    def deleteMin(self):
-        pass
-    def deleteMax(self):
-        pass
+
+    def deleteMin(self) -> None:
+        self.__bst.delete(self.__bst.getMinKey())
+
+    def deleteMax(self) -> None:
+        self.__bst.delete(self.__bst.getMaxKey())
+
     def size(self, lowKey : object, highKey : object) -> int:
-        pass
-    def keys(self, lowKey : object, highKey : object) -> Iterator:
-        pass
+        return self.keys(lowKey, highKey).size()
+
+    def keys(self, lowKey : object, highKey : object) -> DoubleLinkedList[object]:
+        resultList : DoubleLinkedList = DoubleLinkedList()
+        beginToAdd : bool = False
+        for key in self.keys():
+            if key == lowKey:
+                beginToAdd = True
+            if beginToAdd:
+                resultList.addToFirst(key)
+            if key == highKey:
+                return resultList
+        return resultList
