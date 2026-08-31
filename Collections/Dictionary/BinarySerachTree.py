@@ -4,8 +4,8 @@ from Collections.List.DoubleLinkedList import DoubleLinkedList
 
 class BinarySearchTree:
     class Node:
-        leftSubTree : BinarySearchTree.Node = None
-        rightSubTree : BinarySearchTree.Node = None
+        leftSubTree : BinarySearchTree.Node | None = None
+        rightSubTree : BinarySearchTree.Node | None = None
 
         def __init__(self, key : object, value : object) -> None:
             self.key = key
@@ -50,7 +50,7 @@ class BinarySearchTree:
         return self.rootNode.countOfSubNodesAndSelf
 
     def specificSize(self, key : object) -> int:
-        node : BinarySearchTree.Node = self.get(key)
+        node : BinarySearchTree.Node | None = self.get(key)
         if node is None:
             return 0
         return node.countOfSubNodesAndSelf
@@ -63,7 +63,7 @@ class BinarySearchTree:
         self.__inorder(self.rootNode, resultList)
         return resultList
 
-    def __inorder(self, currentNode : BinarySearchTree.Node, resultList : DoubleLinkedList[object]) -> None:
+    def __inorder(self, currentNode : BinarySearchTree.Node | None, resultList : DoubleLinkedList[object]) -> None:
         if currentNode is None:
             return
         self.__inorder(currentNode.leftSubTree, resultList)
@@ -131,7 +131,7 @@ class BinarySearchTree:
             return currentNode
         return self.__getMaxNode(currentNode.rightSubTree)
 
-    def __rank(self, key : object, currentNode : BinarySearchTree.Node) -> int:
+    def __rank(self, key : object, currentNode : BinarySearchTree.Node | None) -> int:
         if currentNode is None:
             return 0
         if key < currentNode.key:
