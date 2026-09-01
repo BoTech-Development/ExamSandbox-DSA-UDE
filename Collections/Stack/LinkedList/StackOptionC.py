@@ -1,6 +1,6 @@
-class StackOptionC:
+class Stack:
     __currentSize: int = 0
-    __topOfStackElement: Node = None
+    __topOfStackElement: Node | None = None
 
     def __init__(self):
         pass
@@ -29,9 +29,20 @@ class StackOptionC:
     def size(self) -> int:
         return self.__currentSize
 
+    def __iter__(self):
+        self.__iterator = self.__topOfStackElement
+        return self
+
+    def __next__(self):
+        if self.__topOfStackElement == None:
+            raise StopIteration
+        else:
+            self.__iterator = self.__topOfStackElement
+            return self.pop()
+
 
 class Node:
-    __next: Node = None
+    __next: Node | None = None
 
     def __init__(self, data: object):
         self.__data = data
@@ -52,8 +63,8 @@ class Node:
 class InvalidOperationException(Exception):
     pass
 
-
-stack = StackOptionC()
+'''
+stack = Stack()
 stack.push(5)
 stack.push(6)
 stack.push(7)
@@ -62,3 +73,4 @@ print(stack.pop())
 print(stack.pop())
 print(stack.pop())
 print(stack.pop())
+'''

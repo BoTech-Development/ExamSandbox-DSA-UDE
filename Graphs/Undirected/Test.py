@@ -1,0 +1,35 @@
+from Graphs.Undirected.BreadthFirstSearch import BreadthFirstSearch
+from Graphs.Undirected.ConnectedComponents import ConnectedComponents
+from Graphs.Undirected.DepthFirstSearch import DepthFirstSearch
+from Graphs.Undirected.GraphFromFileHelper import GraphFromFileHelper
+from Graphs.Undirected.GraphVisualizer import GraphVisualizer
+
+gReader = GraphFromFileHelper("tinyGraph.txt")
+graph = gReader.getGraph()
+
+print("---------DFS--------")
+
+dfsHelper = DepthFirstSearch(graph, 0)
+print(dfsHelper.hasPathTo(1))
+
+#path to node 3
+for node in dfsHelper.pathTo(3):
+    print(node)
+
+print("---------BFS--------")
+
+bfsHelper = BreadthFirstSearch(graph, 0)
+print(bfsHelper.hasPathTo(1))
+for node in bfsHelper.pathTo(3):
+    print(node)
+
+print("distTo: " + str(bfsHelper.getDistanceFromStartToNode(4)))
+
+print("---------CC---------")
+ccHelper = ConnectedComponents(graph)
+print(ccHelper.count())
+print(ccHelper.id(7))
+print(ccHelper.connected(7,10))
+
+visualizer = GraphVisualizer(graph)
+visualizer.createPng("test")

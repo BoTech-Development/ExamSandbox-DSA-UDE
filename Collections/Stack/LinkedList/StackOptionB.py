@@ -1,7 +1,7 @@
 class StackOptionB:
     __currentSize: int = 0
-    __topOfStackElement: Node = None
-    __firstElement: Node = None
+    __topOfStackElement: Node | None = None
+    __firstElement: Node | None = None
     def __init__(self):
         pass
 
