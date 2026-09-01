@@ -7,8 +7,8 @@ class PriorityQueue:
     currentIndex : int = 0
     def __init__(self, capacity: int):
         self.capacity = capacity
-        #self.nodesArray = DSA.objArray(capacity)
-        self.nodesArray : list[object] = [None, "T", "P", "R", "N", "H", "O", "A", "E", "I", "G"]
+        self.nodesArray = DSA.objArray(capacity)
+        #self.nodesArray : list[object] = [None, "T", "P", "R", "N", "H", "O", "A", "E", "I", "G"]
 
     def isEmpty(self) -> bool:
         return self.currentIndex == 0
@@ -20,7 +20,7 @@ class PriorityQueue:
 
     def deleteMax(self) -> object:
         # Schiebe das aktuelle (ein sehr kleinenes Element nicht das kleinste) nach oben und das größte nach unten
-        self.__swapElementsInArray(0, self.currentIndex)
+        self.__swapElementsInArray(1, self.currentIndex, self.nodesArray)
         self.currentIndex -= 1
         self.__sinkDown(1) #korrigiere wieder die Heap ordnung
         # Übergebe das größte Element mit der vermeidung von loitering
@@ -31,16 +31,20 @@ class PriorityQueue:
     def __sinkDown(self, indexToSwimDown : int) -> None:
         leftChildIndex : int = self.__getIndexOfLeftChildrenOfNode(indexToSwimDown)
         rightChildIndex : int = self.__getIndexOfRightChildrenOfNode(indexToSwimDown)
+        if rightChildIndex > self.currentIndex or leftChildIndex > self.currentIndex:
+            return
+
         rightChildElement : object = self.nodesArray[rightChildIndex]
         leftChildElement : object = self.nodesArray[leftChildIndex]
         currentElement : object = self.nodesArray[indexToSwimDown]
+
         # müssen wir überhaupt noch sinken lassen?
         if currentElement < leftChildElement or currentElement < rightChildElement:
             # Welches Element wird parent?
             if leftChildElement < rightChildElement:
                 # der rechte wird parent
-                self.__swapElementsInArray(indexToSwimDown, rightChildElement, self.nodesArray)
-                self.__sinkDown(rightChildElement)
+                self.__swapElementsInArray(indexToSwimDown, rightChildIndex, self.nodesArray)
+                self.__sinkDown(rightChildIndex)
             else:
                 # der linke wird parent
                 self.__swapElementsInArray(indexToSwimDown, leftChildIndex, self.nodesArray)
@@ -54,7 +58,7 @@ class PriorityQueue:
             self.__swapElementsInArray(currentParentIndex, indexToSwimUp, self.nodesArray) # Schiebe nach oben
             self.__swimUp(currentParentIndex) # mache beim neuen parent weiter.
 
-    def __swapElementsInArray(indexOfFirstElement: int, indexOfSecondElement: int, dataToSwap: list[object]) -> None:
+    def __swapElementsInArray(self, indexOfFirstElement: int, indexOfSecondElement: int, dataToSwap: list[object]) -> None:
         elementPuffer : object = dataToSwap[indexOfFirstElement]
         dataToSwap[indexOfFirstElement] = dataToSwap[indexOfSecondElement]
         dataToSwap[indexOfSecondElement] = elementPuffer
@@ -95,11 +99,15 @@ class PriorityQueue:
             level += 1
 
 
-pq : PriorityQueue = PriorityQueue(10)
-pq.pretty_print_heap()
+pq : PriorityQueue = PriorityQueue(12)
+
 print("+++inserting+++")
-pq.insert("S")
-pq.pretty_print_heap()
+for dataToInsert in ["T", "P", "R", "N", "H", "O", "A", "E", "I", "G", "S"]:
+    pq.insert(dataToInsert)
+    pq.pretty_print_heap()
+
 print("+++Deleting++++")
-print(pq.deleteMax())
-pq.pretty_print_heap()
+
+while not pq.isEmpty():
+    print(pq.deleteMax())
+    pq.pretty_print_heap()
