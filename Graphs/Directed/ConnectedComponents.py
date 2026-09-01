@@ -1,6 +1,6 @@
 import DSA
-from Graphs.Undirected.DepthFirstSearch import DepthFirstSearch
-from Graphs.Undirected.Graph import Graph
+from Graphs.Directed.DepthFirstSearch import DepthFirstSearch
+from Graphs.Directed.Graph import Graph
 
 
 class ConnectedComponents:
@@ -25,7 +25,6 @@ class ConnectedComponents:
                         self.__components[nodeInComponent] = currentComponentId
                 currentComponentId += 1
         self.__componentCount = currentComponentId
-
 
     # Prüfe ob zwei Knoten die gleiche Komponente haben
     def connected(self, fromNodeId : int,  toNodeId : int) -> int | None:
