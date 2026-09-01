@@ -67,10 +67,6 @@ class RedBlackTree:
         pass
 
     def __correctColorsFrom(self, currentNode : RedBlackTree.Node) -> RedBlackTree.Node:
-        # siehe Folie 72, Einfacher fall wenn der aktuelle Knoten der Wurzelknoten ist.
-        if currentNode == self.rootNode:
-            if currentNode.rightSubTree is not None and currentNode.rightSubTree.isRed():
-                return self.__rotateLeft(currentNode)
         # siehe Folie 79, Fall larger
         if currentNode.leftSubTree is not None and currentNode.rightSubTree is not None:
             if currentNode.leftSubTree.isRed() and currentNode.rightSubTree.isRed():
@@ -89,6 +85,13 @@ class RedBlackTree:
                 newTopNode : RedBlackTree.Node = self.__rotateRight(currentNode)
                 self.__flipColor(newTopNode)
                 return newTopNode
+        # Siehe Folie 78, wenn man unten in einen rechten Teilbaum einfügt und eine Rote kante erzeugt, dann muss man nach links rotieren
+        if currentNode.rightSubTree is not None and currentNode.rightSubTree.leftSubTree is None and currentNode.rightSubTree.rightSubTree is None and currentNode.rightSubTree.isRed():
+            return self.__rotateLeft(currentNode)
+        # siehe Folie 72, Einfacher fall, wenn der aktuelle Knoten der Wurzelknoten ist.
+        if currentNode == self.rootNode:
+            if currentNode.rightSubTree is not None and currentNode.rightSubTree.isRed():
+                return self.__rotateLeft(currentNode)
         # alles ist in bester ordnung nichts zu verändern
         return currentNode
 
@@ -148,7 +151,7 @@ rbTree = RedBlackTree()
 visual = RedBlackTreeVisualizer(BLACK)
 
 counter = 0
-for key in [20, 10, 5, 15, 30, 25]:
+for key in [20, 10, 5, 15, 30, 25, 6, 8, 9, 7]:
     rbTree.insert(key, key)
     visual.visualize(rbTree.rootNode, "tree" + str(counter))
     counter += 1
