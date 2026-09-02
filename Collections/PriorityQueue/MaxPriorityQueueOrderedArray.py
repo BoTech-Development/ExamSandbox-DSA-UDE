@@ -68,16 +68,16 @@ def binary_search_insert_position(arr, target):
     return left
 
 
+if __name__ == '__main__':
+    startIndex = 0
+    endIndex = 0
+    midIndex = 1
 
-startIndex = 0
-endIndex = 0
-midIndex = 1
+    insert = 2
 
-insert = 2
+    array = [1,3,7,9,10,11,14,16]
 
-array = [1,3,7,9,10,11,14,16]
+    # Wenn Element größer als a[mid] und mid + 1 == endIndex, dann return endIndex
 
-# Wenn Element größer als a[mid] und mid + 1 == endIndex, dann return endIndex
-
-print(binary_search_insert_position(array, 5))
+    print(binary_search_insert_position(array, 5))
 

@@ -1,6 +1,6 @@
 import DSA
 from Collections.Stack.LinkedList.StackOptionC import Stack
-from Graphs.Directed.Graph import Graph
+from Graphs.WeightedAndDirected.Graph import Graph
 
 
 class TopologicalSort:
@@ -17,7 +17,8 @@ class TopologicalSort:
 
     def __depthFirstSearch(self, fromNodeId : int) -> None:
         self.__marked[fromNodeId] = True
-        for toNode in self.__graph.adj(fromNodeId):
+        for edge in self.__graph.adj(fromNodeId):
+            toNode : int = edge.target()
             if not self.__marked[toNode]:
                 self.__depthFirstSearch(toNode)
         self.__reversedPostOrder.push(fromNodeId)

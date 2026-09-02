@@ -98,16 +98,16 @@ class MaxPriorityQueue:
             idx += nodes_in_level
             level += 1
 
+if __name__ == '__main__':
+    pq : MaxPriorityQueue = MaxPriorityQueue(12)
 
-pq : MaxPriorityQueue = MaxPriorityQueue(12)
+    print("+++inserting+++")
+    for dataToInsert in ["T", "P", "R", "N", "H", "O", "A", "E", "I", "G", "S"]:
+        pq.insert(dataToInsert)
+        pq.pretty_print_heap()
 
-print("+++inserting+++")
-for dataToInsert in ["T", "P", "R", "N", "H", "O", "A", "E", "I", "G", "S"]:
-    pq.insert(dataToInsert)
-    pq.pretty_print_heap()
+    print("+++Deleting++++")
 
-print("+++Deleting++++")
-
-while not pq.isEmpty():
-    print(pq.deleteMax())
-    pq.pretty_print_heap()
+    while not pq.isEmpty():
+        print(pq.deleteMax())
+        pq.pretty_print_heap()

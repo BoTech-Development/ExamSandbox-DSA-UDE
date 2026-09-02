@@ -64,28 +64,29 @@ class QueueOptionB:
 class InvalidOperationException(Exception):
     pass
 
-queue : QueueOptionB = QueueOptionB(10)
+if __name__ == '__main__':
+    queue : QueueOptionB = QueueOptionB(10)
 
-countOfValues : int = 11
+    countOfValues : int = 11
 
-print("---ENQUEUE---")
-for i in range(countOfValues):
-    queue.enqueue(i)
-    queue.printStatus()
-print("---DEQUEUE---")
-for i in range(countOfValues):
-    print(str(queue.dequeue()))
-    queue.printStatus()
+    print("---ENQUEUE---")
+    for i in range(countOfValues):
+        queue.enqueue(i)
+        queue.printStatus()
+    print("---DEQUEUE---")
+    for i in range(countOfValues):
+        print(str(queue.dequeue()))
+        queue.printStatus()
 
-print("--------------RANDOM----------------")
+    print("--------------RANDOM----------------")
 
-countOfLoops : int = 100
-while countOfLoops > 0:
-    countOfLoops -= 1
-    if randint(0,1) == 1:
-        print("ENQUEUE: " + str(countOfLoops))
-        queue.enqueue(countOfLoops)
-    else:
-        print("DEQUEUE: " + str(countOfLoops) + ", val:" + str(queue.dequeue()))
-    queue.printStatus()
+    countOfLoops : int = 100
+    while countOfLoops > 0:
+        countOfLoops -= 1
+        if randint(0,1) == 1:
+            print("ENQUEUE: " + str(countOfLoops))
+            queue.enqueue(countOfLoops)
+        else:
+            print("DEQUEUE: " + str(countOfLoops) + ", val:" + str(queue.dequeue()))
+        queue.printStatus()
 
