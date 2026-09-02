@@ -60,6 +60,7 @@ class Graph:
 
     def addEdge(self, edgeToAdd : Edge) -> None:
         self.__adjacencyList[edgeToAdd.either()].add(edgeToAdd)
+        self.__adjacencyList[edgeToAdd.other(edgeToAdd.either())].add(edgeToAdd)
 
     def removeEdge(self, edgeToRemove : Edge) -> None:
         self.__adjacencyList[edgeToRemove.either()].remove(edgeToRemove)

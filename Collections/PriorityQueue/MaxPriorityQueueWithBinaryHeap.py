@@ -3,7 +3,7 @@ from math import log2
 import DSA
 
 
-class PriorityQueue:
+class MaxPriorityQueue:
     currentIndex : int = 0
     def __init__(self, capacity: int):
         self.capacity = capacity
@@ -99,7 +99,7 @@ class PriorityQueue:
             level += 1
 
 
-pq : PriorityQueue = PriorityQueue(12)
+pq : MaxPriorityQueue = MaxPriorityQueue(12)
 
 print("+++inserting+++")
 for dataToInsert in ["T", "P", "R", "N", "H", "O", "A", "E", "I", "G", "S"]:

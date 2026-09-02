@@ -3,6 +3,8 @@ from Graphs.Weighted.ConnectedComponents import ConnectedComponents
 from Graphs.Weighted.DepthFirstSearch import DepthFirstSearch
 from Graphs.Weighted.GraphFromFileHelper import GraphFromFileHelper
 from Graphs.Weighted.GraphVisualizer import GraphVisualizer
+from Graphs.Weighted.Kruskal import Kruskal
+from Graphs.Weighted.Prim import Prim
 
 gReader = GraphFromFileHelper("tinyGraph.txt")
 graph = gReader.getGraph()
@@ -32,7 +34,13 @@ print(ccHelper.count())
 print(ccHelper.id(7))
 print(ccHelper.connected(7,5))
 
+mstHelperKruskal = Kruskal.MinimalSpanningTree(graph)
+visualizer = GraphVisualizer(mstHelperKruskal.getMinimalSpanningTree())
+visualizer.createPng("minimalKruskal")
 
+mstHelperKruskal = Prim.MinimalSpanningTree(graph)
+visualizer = GraphVisualizer(mstHelperKruskal.getMinimalSpanningTree())
+visualizer.createPng("minimalPrim")
 
 visualizer = GraphVisualizer(graph)
 visualizer.createPng("test")
